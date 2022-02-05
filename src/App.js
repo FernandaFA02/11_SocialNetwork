@@ -1,11 +1,29 @@
-import logo from '../src/Assets/L1.jpg';
-import './App.css';
+import React, {useState, useEffect} from 'react'
+import Home from '../src/Componentes/Home'
+import Logueo from '../src/Componentes/Logueo'
+
+import firebaseApp from './Componentes/Firebase';
+import {getAuth, onAuthStateChanged} from 'firebase/auth'; 
+const auth = getAuth(firebaseApp);
+
 
 function App() {
+  const [usuarioGlobal, setUsuarioGlobal] = useState(null);
+
+  onAuthStateChanged(auth, (usuarioFirebase)=>{
+    if(usuarioFirebase){
+      //en caso de inicio de sesión
+      setUsuarioGlobal(usuarioFirebase);
+    }else{
+      //en caso de que no se inicie sesión
+      setUsuarioGlobal(null);
+    }
+  })
+
   return (
-    <div>
-     <img src={logo} alt='Logo'></img>
-    </div>
+    <>
+    {usuarioGlobal ? <Home/> : <Logueo/>}
+    </>
   );
 }
 
