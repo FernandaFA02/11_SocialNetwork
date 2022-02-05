@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Home from '../src/Componentes/Home'
 import Logueo from '../src/Componentes/Logueo'
+import './App.css'
 
 import firebaseApp from './Componentes/Firebase';
 import {getAuth, onAuthStateChanged} from 'firebase/auth'; 
@@ -22,7 +23,7 @@ function App() {
 
   return (
     <>
-    {usuarioGlobal ? <Home/> : <Logueo/>}
+    {usuarioGlobal ? <Home correoUsuario={usuarioGlobal.email} /> : <Logueo/>}
     </>
   );
 }
