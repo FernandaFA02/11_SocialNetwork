@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import { Stack, Container, Form, Button } from 'react-bootstrap'
 import firebaseApp from './Firebase';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect,
+GoogleAuthProvider} from 'firebase/auth';
 
 const auth = getAuth(firebaseApp);
+const googleProvider = new GoogleAuthProvider();
 
 export default function Logueo() {
     const [estaRegistrandose, setEstaRegistrandose] = useState(false);
@@ -47,7 +49,7 @@ export default function Logueo() {
         </Button>
     </Form>
 
-    <Button variant="primary" type="submit" style={{ width: "300px" }}>
+    <Button variant="primary" type="submit" style={{ width: "300px" }} onClick={()=>signInWithRedirect(auth, googleProvider)}>
             Acceder con Google
         </Button>
 
