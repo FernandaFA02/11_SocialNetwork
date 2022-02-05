@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { Stack, Container, Form, Button } from 'react-bootstrap'
+import logo from '../Assets/L1.jpg'
+import '../App.css'
 import firebaseApp from './Firebase';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect,
 GoogleAuthProvider} from 'firebase/auth';
@@ -32,6 +34,7 @@ export default function Logueo() {
     return (
     <Container>
     <Stack gap={3}>
+    <img src={logo} alt='Logo' id='logo'/>
     <h1>{estaRegistrandose ? 'Registrate' : 'Inicia Sesión'}</h1>
     <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="formBasicEmail">

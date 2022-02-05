@@ -1,0 +1,10 @@
+body{
+    background-image: url(../src/Assets/Fondo1.jpg);
+    font-family: 'Berkshire' cursive;
+}
+
+#logo{
+    width: 10%;
+    border-radius: 30px;
+    position:sticky;
+}
