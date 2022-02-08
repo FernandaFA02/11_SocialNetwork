@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {Container, Button} from 'react-bootstrap'
 import Publicar from '../Componentes/Publicar'
 import Publicaciones from '../Componentes/Publicaciones'
+import '../App.css'
 
 //Se importan las credeciales de firebase
 import firebaseApp from './Firebase'
 import {getAuth, signOut}  from'firebase/auth'
-import {getFirestore, doc, getDocs, setDoc, collection} from 'firebase/firestore'
+import {getFirestore, getDocs, collection} from 'firebase/firestore'
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
@@ -42,7 +43,7 @@ export default function Home({correoUsuario}) {
 
     return (
         <Container>
-            <h4>Hola, iniciaste sesión</h4>
+            <h4>Hola,  {correoUsuario}, iniciaste sesión</h4>
             <Button onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
             <hr/>
             <Publicar/>
