@@ -3,7 +3,7 @@ import {Card, Button, Container} from 'react-bootstrap'
 
 //Se importan las credenciales de firebase
 import firebaseApp from './Firebase'
-import {getFirestore, updateDoc, doc, collection, getDocs, addDoc} from 'firebase/firestore'
+import {getFirestore, collection, getDocs, addDoc} from 'firebase/firestore'
 const firestore = getFirestore(firebaseApp);
 
 export default function Publicar({correoUsuario, arrayPubli, setArrayPubli}) {
@@ -33,12 +33,7 @@ export default function Publicar({correoUsuario, arrayPubli, setArrayPubli}) {
     return (
     <Container>   
         <Card onSubmit={nuevaPubli}>
-            <Card.Header as="h5" id='header'></Card.Header>
-            <Card.Body>
-            <Card.Title id='titulo'></Card.Title>
-            <Card.Text id='descripcion'></Card.Text>
-            <Button type='submit' variant="primary" id='btn'>Publicar</Button>
-            </Card.Body>
+
         </Card>
         <hr/>
     </Container>     

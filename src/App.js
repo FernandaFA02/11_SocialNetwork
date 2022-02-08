@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Home from '../src/Componentes/Home'
 import Logueo from '../src/Componentes/Logueo'
 import './App.css'
