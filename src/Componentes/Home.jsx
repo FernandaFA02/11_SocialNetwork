@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {Container, Button, Stack, Form, FormGroup, FormControl, Table} from 'react-bootstrap'
 import traerData from './TraerPublicaciones'
+import eliminarPubliHome from './EliminarPubli'
 import '../App.css'
 //Se importa el modal
 import ModalAñadir from './ModalAñadir'
 //Se importan las credeciales de firebase
 import firebaseApp from './Firebase'
 import {getAuth, signOut}  from'firebase/auth'
-import {getFirestore, getDocs, collection} from 'firebase/firestore'
 const auth = getAuth(firebaseApp);
-const firestore = getFirestore(firebaseApp);
 
 
 
@@ -77,7 +76,11 @@ export default function Home({correoUsuario}) {
                             <td>{objeto.id}</td>
                             <td>
                                 <Button variant='dark'>Editar</Button>
-                                <Button variant='danger'>Eliminar</Button>
+                                <Button onClick={()=> {
+                                    eliminarPubliHome(objeto).then(
+                                        (confirmacion) => {
+                                        actualizarPubli();
+                                    }); }} variant='danger' >Eliminar</Button>
                             </td>
                         </tr>
                     ))}
