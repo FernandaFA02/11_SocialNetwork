@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {Container, Button} from 'react-bootstrap'
-import Publicar from '../Componentes/Publicar'
-import Publicaciones from '../Componentes/Publicaciones'
+import {Container, Button, Stack, Form, FormGroup, FormControl, Table} from 'react-bootstrap'
+import traerData from './TraerPublicaciones'
 import '../App.css'
-
+//Se importa el modal
+import ModalAñadir from './ModalAñadir'
 //Se importan las credeciales de firebase
 import firebaseApp from './Firebase'
 import {getAuth, signOut}  from'firebase/auth'
@@ -12,44 +12,82 @@ const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 
+
+
 export default function Home({correoUsuario}) {
-    const [arrayPubli, setArrayPubli] = useState(null);
-
+    const [publicaciones, setPublicaciones] = useState();
+    const [isModalAñadir, setIsModalAñadir] = useState(false);
     console.log(correoUsuario);
-    const fakeData = [
-        {id:1, descripcion:'publicacion falsa 1', url: 'https://picsum.photos/420'},
-        {id:2, descripcion:'publicacion falsa 2', url: 'https://picsum.photos/420'},
-        {id:3, descripcion:'publicacion falsa 3', url: 'https://picsum.photos/420'},
-    ];
 
-    async function buscarPubliOrCrearPubli(){
-        //se crea una referencia a la collection
-        const docuRef = collection(firestore, 'publicaciones');
-        const publicacion = [];
-        const querySnapshot = await getDocs(docuRef);
-        querySnapshot.forEach((doc)=>{
-            publicacion.push(doc.data());
+
+    function actualizarPubli (){
+        traerData().then((publicaciones) =>{
+            setPublicaciones(publicaciones);
         });
-        return publicacion;
-    };
-
-    useEffect(()=>{
-    async function pullCollection(){
-        const publiExistentes= await buscarPubliOrCrearPubli();
-        setArrayPubli(publiExistentes);
     }
-    pullCollection();
-    },  []);
+
+    function añadirPubliHome () {
+        setIsModalAñadir(true);
+    }
+
+    useEffect(() => {
+        actualizarPubli();
+    }, [])
 
     return (
-        <Container>
+        <Container fluid>
+            <ModalAñadir isModalAñadir={isModalAñadir} setIsModalAñadir={setIsModalAñadir} 
+            actualizarPubli={actualizarPubli}/>
+            <Stack direction='horizontal' className='justify-content-between'>
             <h4>Hola,  {correoUsuario}, iniciaste sesión</h4>
-            <Button onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
+            <Button variant="outline-warning" onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
+            </Stack>
             <hr/>
-            <Publicar/>
-            {arrayPubli ?  <Publicaciones arrayPubli={arrayPubli} setArrayPubli={setArrayPubli} 
-            correoUsuario={correoUsuario} /> : null}
+            <Form>
+                <Stack direction='horizontal'>
+                    <FormGroup controlId='busqueda' className='w-75 m-3'>
+                        <FormControl type='text' placeholder='Buscar' />
+                    </FormGroup>
+                    <Button type='submit' variant='dark'>Buscar</Button>
+                    <Button variant='light'>Reset</Button>
+                </Stack>
+            </Form>
+            <hr/>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titulo</th>
+                        <th>Ubicación</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>ID</th>
+                        <th>Acciones</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {publicaciones && publicaciones.map((objeto, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{objeto.titulo}</td>
+                            <td>{objeto.ubicación}</td>
+                            <td>{objeto.descripción}</td>
+                            <td>{objeto.Fecha}</td>
+                            <td>{objeto.id}</td>
+                            <td>
+                                <Button variant='dark'>Editar</Button>
+                                <Button variant='danger'>Eliminar</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
 
+            <Button onClick={añadirPubliHome}>Agregar Publicación</Button>
+
+
+          
         </Container>
     
     );
