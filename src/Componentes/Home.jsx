@@ -3,8 +3,9 @@ import {Container, Button, Stack, Form, FormGroup, FormControl, Table} from 'rea
 import traerData from './TraerPublicaciones'
 import eliminarPubliHome from './EliminarPubli'
 import '../App.css'
-//Se importa el modal
+//Se importan los modales
 import ModalAñadir from './ModalAñadir'
+import ModalEditar from './ModalEditar'
 //Se importan las credeciales de firebase
 import firebaseApp from './Firebase'
 import {getAuth, signOut}  from'firebase/auth'
@@ -16,6 +17,8 @@ const auth = getAuth(firebaseApp);
 export default function Home({correoUsuario}) {
     const [publicaciones, setPublicaciones] = useState();
     const [isModalAñadir, setIsModalAñadir] = useState(false);
+    const [isModalEditar, setIsModalEditar] = useState(false);
+    const [publiEditar, setPubliEditar] = useState();
     console.log(correoUsuario);
 
 
@@ -37,6 +40,8 @@ export default function Home({correoUsuario}) {
         <Container fluid>
             <ModalAñadir isModalAñadir={isModalAñadir} setIsModalAñadir={setIsModalAñadir} 
             actualizarPubli={actualizarPubli}/>
+            { publiEditar && (<ModalEditar isModalEditar={isModalEditar} setIsModalEditar={setIsModalEditar} 
+            actualizarPubli={actualizarPubli} publiEditar={publiEditar}  setPubliEditar={setPubliEditar} />)}
             <Stack direction='horizontal' className='justify-content-between'>
             <h4>Hola,  {correoUsuario}, iniciaste sesión</h4>
             <Button variant="outline-warning" onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
@@ -75,7 +80,9 @@ export default function Home({correoUsuario}) {
                             <td>{objeto.Fecha}</td>
                             <td>{objeto.id}</td>
                             <td>
-                                <Button variant='dark'>Editar</Button>
+                                <Button variant='dark' onClick={() => { 
+                                    setPubliEditar({...objeto});
+                                    setIsModalEditar(true);}}>Editar</Button>
                                 <Button onClick={()=> {
                                     eliminarPubliHome(objeto).then(
                                         (confirmacion) => {
