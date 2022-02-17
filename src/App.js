@@ -13,8 +13,6 @@ function App() {
 
   onAuthStateChanged(auth, (usuarioFirebase)=>{
     if(usuarioFirebase){
-      console.log(usuarioFirebase.displayName);
-      console.log(usuarioFirebase.photoURL);
       //en caso de inicio de sesión
       setUsuarioGlobal(usuarioFirebase);
     }else{
@@ -25,7 +23,7 @@ function App() {
 
   return (
     <>
-    {usuarioGlobal ? <Home correoUsuario={usuarioGlobal.email} /> : <Logueo/>}
+    {usuarioGlobal ? <Home correoUsuario={usuarioGlobal.email} userName={usuarioGlobal.displayName} photo={usuarioGlobal.photoURL} /> : <Logueo/>}
     </>
   );
 }
