@@ -3,6 +3,7 @@ import {Container, Button, Stack, Form, FormGroup, FormControl, Table} from 'rea
 import traerData from './TraerPublicaciones'
 import eliminarPubliHome from './EliminarPubli'
 import '../App.css'
+import filtrarDatos from './FiltradorDatos'
 //Se importan los modales
 import ModalAñadir from './ModalAñadir'
 import ModalEditar from './ModalEditar'
@@ -21,6 +22,12 @@ export default function Home({correoUsuario}) {
     const [publiEditar, setPubliEditar] = useState();
     console.log(correoUsuario);
 
+    async function busquedaForm (e) {
+        e.preventDefault();
+        const busqueda = e.target.busqueda.value;
+        const nuevosDocus = await filtrarDatos(busqueda);
+        setPublicaciones(nuevosDocus)
+    }
 
     function actualizarPubli (){
         traerData().then((publicaciones) =>{
@@ -37,23 +44,30 @@ export default function Home({correoUsuario}) {
     }, [])
 
     return (
+        
         <Container fluid>
             <ModalAñadir isModalAñadir={isModalAñadir} setIsModalAñadir={setIsModalAñadir} 
             actualizarPubli={actualizarPubli}/>
+
             { publiEditar && (<ModalEditar isModalEditar={isModalEditar} setIsModalEditar={setIsModalEditar} 
             actualizarPubli={actualizarPubli} publiEditar={publiEditar}  setPubliEditar={setPubliEditar} />)}
+
             <Stack direction='horizontal' className='justify-content-between'>
             <h4>Hola,  {correoUsuario}, iniciaste sesión</h4>
             <Button variant="outline-warning" onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
             </Stack>
             <hr/>
-            <Form>
+            <Form onSubmit={busquedaForm}>
                 <Stack direction='horizontal'>
                     <FormGroup controlId='busqueda' className='w-75 m-3'>
                         <FormControl type='text' placeholder='Buscar' />
                     </FormGroup>
                     <Button type='submit' variant='dark'>Buscar</Button>
-                    <Button variant='light'>Reset</Button>
+                    <Button variant='light' onClick={()=>{
+                        const input = document.getElementById('busqueda');
+                        input.value = '';
+                        actualizarPubli();
+                    }}>Reset</Button>
                 </Stack>
             </Form>
             <hr/>
@@ -93,9 +107,26 @@ export default function Home({correoUsuario}) {
                     ))}
                 </tbody>
             </Table>
-
+            {/* <>
+<Card> {publicaciones && publicaciones.map((objeto, index) => (
+<Card.Header as="h5" key={index}>{objeto.titulo}</Card.Header>
+<Card.Body>
+  <Card.Title>{objeto.ubicación}</Card.Title>
+  <Card.Text>
+  {objeto.descripción}, {objeto.Fecha}, {objeto.id}
+  </Card.Text>
+  <Button variant='dark' onClick={() => { 
+                                    setPubliEditar({...objeto});
+                                    setIsModalEditar(true);}}>Editar</Button>
+                                <Button onClick={()=> {
+                                    eliminarPubliHome(objeto).then(
+                                        (confirmacion) => {
+                                        actualizarPubli();
+                                    }); }} variant='danger' >Eliminar</Button>
+)</Card.Body>
+)</Card>
             <Button onClick={añadirPubliHome}>Agregar Publicación</Button>
-
+            </> */}
 
           
         </Container>
