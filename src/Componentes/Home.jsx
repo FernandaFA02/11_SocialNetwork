@@ -15,12 +15,12 @@ const auth = getAuth(firebaseApp);
 
 
 
-export default function Home({correoUsuario}) {
+export default function Home({userName}) {
     const [publicaciones, setPublicaciones] = useState();
     const [isModalAñadir, setIsModalAñadir] = useState(false);
     const [isModalEditar, setIsModalEditar] = useState(false);
     const [publiEditar, setPubliEditar] = useState();
-    console.log(correoUsuario);
+    console.log(userName);
 
     async function busquedaForm (e) {
         e.preventDefault();
@@ -53,7 +53,7 @@ export default function Home({correoUsuario}) {
             actualizarPubli={actualizarPubli} publiEditar={publiEditar}  setPubliEditar={setPubliEditar} />)}
 
             <Stack direction='horizontal' className='justify-content-between'>
-            <h4>Hola,  {correoUsuario}, iniciaste sesión</h4>
+            <h4>Hola,  {userName}, iniciaste sesión</h4>
             <Button variant="outline-warning" onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
             </Stack>
             <hr/>
