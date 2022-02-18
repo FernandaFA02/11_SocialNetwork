@@ -2,7 +2,7 @@ import React from 'react'
 import {Modal, Stack, Form, Button} from 'react-bootstrap'
 import añadirPubli from '../Componentes/AñadirPubli'
 
-export default function ModalAñadir({isModalAñadir, setModalAñadir, actualizarPubli}) {
+export default function ModalAñadir({isModalAñadir, setIsModalAñadir, actualizarPubli}) {
 
     function añadirPubliModal () {
         //obtenemos la información del formulario
@@ -16,11 +16,11 @@ export default function ModalAñadir({isModalAñadir, setModalAñadir, actualiza
         añadirPubli(infoPubli);
         //cerramos el modal
         actualizarPubli();
-        setModalAñadir(false);
+        setIsModalAñadir(false);
     }
 
   return (
-    <Modal show={isModalAñadir} onHide={()=>setModalAñadir(false)}>
+    <Modal show={isModalAñadir} onHide={() => setIsModalAñadir(false)}>
         <Modal.Header>
             <Modal.Title>Añadir Publicación</Modal.Title>
         </Modal.Header>
@@ -36,8 +36,8 @@ export default function ModalAñadir({isModalAñadir, setModalAñadir, actualiza
             </Form>
         </Modal.Body>
         <Modal.Footer>
-            <Button onClick={()=>setModalAñadir(false)} variant='primary' >Cancelar</Button>
-            <Button  onClick={añadirPubliModal} variant='secondary'>Añadir</Button>
+            <Button  variant='light' onClick={() => setIsModalAñadir(false)}>Cancelar</Button>
+            <Button  onClick={añadirPubliModal} variant='success'>Añadir</Button>
         </Modal.Footer>
     </Modal>
   )

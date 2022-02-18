@@ -5,7 +5,8 @@ import '../App.css'
 import firebaseApp from './Firebase';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect,
 GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from 'firebase/auth';
-
+import {getFirestore, doc, setDoc} from 'firebase/firestore'
+const firestore = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
 
@@ -21,8 +22,12 @@ export default function Logueo() {
 
         if(estaRegistrandose){
             //si el usuario se registra
-            const usuario = await createUserWithEmailAndPassword(auth, correo, contraseña);
-            console.log(usuario);
+            const usuario = await createUserWithEmailAndPassword(auth, correo, contraseña).then((usuarioFirebase) =>{
+                return(usuarioFirebase);
+            });
+            console.log(usuario.user.uid);
+            const docuRef = doc(firestore, `usuarios/${usuario.user.uid}`)
+            setDoc(docuRef, {correo: correo})
         }else{
             //si el usuario está iniciando sesión
             signInWithEmailAndPassword(auth, correo, contraseña)
@@ -38,6 +43,16 @@ export default function Logueo() {
             console.log(error.message);
         })
     }
+
+    // const traerUsuarios = async () =>{
+    //     const users = [];
+    //     const collectionRef = collection(firestore, 'usuarios');
+    //     const snapShot = await getDocs(collectionRef)
+    //     snapShot.forEach((doc)=>{
+    //         users.push(doc.data())
+    //     });
+    //     console.log(users)
+    // };
 
     return (
     <Container>
