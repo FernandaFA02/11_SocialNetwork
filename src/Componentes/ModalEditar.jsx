@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Modal, Stack, Form, Button} from 'react-bootstrap'
 import añadirPubli from '../Componentes/AñadirPubli'
 
-export default function ModalEditar({isModalEditar, setModalEditar, actualizarPubli, publiEditar, setPubliEditar}) {
+export default function ModalEditar({isModalEditar, setIsModalEditar, actualizarPubli, publiEditar, setPubliEditar}) {
 
     function editarPubliModal () {
         //obtenemos la información del formulario
@@ -17,13 +17,16 @@ export default function ModalEditar({isModalEditar, setModalEditar, actualizarPu
         //cerramos el modal //regresar el estado a {false}
         setPubliEditar(null);
         actualizarPubli();
-        setModalEditar(false);
+        setIsModalEditar(false);
     }
     
     const [publiEstado, setPubliEstado] = useState({...publiEditar});
 
     return (
-    <Modal show={isModalEditar} onHide={()=> {setModalEditar(false); setPubliEditar(null)}}>
+    <Modal show={isModalEditar} onHide={() => {
+        setIsModalEditar(false);
+        setPubliEditar(null);
+      }}>
         <Modal.Header>
             <Modal.Title>Editar Publicación</Modal.Title>
         </Modal.Header>
@@ -44,8 +47,11 @@ export default function ModalEditar({isModalEditar, setModalEditar, actualizarPu
             </Form>
         </Modal.Body>
         <Modal.Footer>
-            <Button onClick={()=>{setModalEditar(false); setPubliEditar(null);}} variant='primary' >Cancelar</Button>
-            <Button  onClick={editarPubliModal} variant='secondary'>Editar</Button>
+            <Button  variant='light' onClick={() => {
+            setIsModalEditar(false);
+            setPubliEditar(null);
+          }}>Cancelar</Button>
+            <Button  onClick={editarPubliModal} variant='success'>Editar</Button>
         </Modal.Footer>
     </Modal>
   )

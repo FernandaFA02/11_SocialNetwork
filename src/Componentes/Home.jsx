@@ -4,6 +4,7 @@ import traerData from './TraerPublicaciones'
 import eliminarPubliHome from './EliminarPubli'
 import '../App.css'
 import filtrarDatos from './FiltradorDatos'
+import Perfil from './Perfil'
 //Se importan los modales
 import ModalAñadir from './ModalAñadir'
 import ModalEditar from './ModalEditar'
@@ -15,12 +16,18 @@ const auth = getAuth(firebaseApp);
 
 
 
-export default function Home({userName}) {
+export default function Home({userName, correoUsuario, photo, infoUsuario}) {
     const [publicaciones, setPublicaciones] = useState();
     const [isModalAñadir, setIsModalAñadir] = useState(false);
     const [isModalEditar, setIsModalEditar] = useState(false);
     const [publiEditar, setPubliEditar] = useState();
     console.log(userName);
+
+    const fakeData = {
+        name: 'Fernanda',
+        email: 'fernanda@gmail.com',
+        photo: 'https://images.pexels.com/photos/3866555/pexels-photo-3866555.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+    };
 
     async function busquedaForm (e) {
         e.preventDefault();
@@ -54,7 +61,7 @@ export default function Home({userName}) {
 
             <Stack direction='horizontal' className='justify-content-between'>
             <h4>Hola,  {userName}, iniciaste sesión</h4>
-            <Button variant="outline-warning" onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
+            <Button variant="outline-secondary" onClick={()=>signOut(auth)}>Cerrar Sesión</Button>
             </Stack>
             <hr/>
             <Form onSubmit={busquedaForm}>
@@ -72,7 +79,7 @@ export default function Home({userName}) {
             </Form>
             <hr/>
             <Table>
-                <thead>
+                <thead id='t-head'>
                     <tr>
                         <th>#</th>
                         <th>Titulo</th>
@@ -84,7 +91,7 @@ export default function Home({userName}) {
                         
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id='t-body'>
                     {publicaciones && publicaciones.map((objeto, index) => (
                         <tr key={index}>
                             <td>{index + 1}</td>
@@ -107,6 +114,8 @@ export default function Home({userName}) {
                     ))}
                 </tbody>
             </Table>
+            {/* <hr/>
+            <Perfil corrreoUsuario={correoUsuario} userName={userName} photo={photo} infoUsusario={infoUsuario}/> */}
             {/* <>
 <Card> {publicaciones && publicaciones.map((objeto, index) => (
 <Card.Header as="h5" key={index}>{objeto.titulo}</Card.Header>
@@ -125,10 +134,10 @@ export default function Home({userName}) {
                                     }); }} variant='danger' >Eliminar</Button>
 )</Card.Body>
 )</Card>
-            <Button onClick={añadirPubliHome}>Agregar Publicación</Button>
+          
             </> */}
 
-          
+<Button onClick={añadirPubliHome} variant="warning">Agregar Publicación</Button>
         </Container>
     
     );
