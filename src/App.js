@@ -15,7 +15,7 @@ function App() {
   async function registros (uid){
     const docuRef = doc(firestore, `usuarios/${uid}`);
     const docuCifrada = await getDoc(docuRef);
-    const infoFinal = docuCifrada.data().correo;
+    const infoFinal = docuCifrada.data().email;
     return infoFinal;
   }
 

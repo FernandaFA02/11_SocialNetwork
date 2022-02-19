@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Container, Button, Stack, Form, FormGroup, FormControl, Table} from 'react-bootstrap'
+import {Container, Button, Stack, Form, FormGroup, FormControl, Table, Card} from 'react-bootstrap'
 import traerData from './TraerPublicaciones'
 import eliminarPubliHome from './EliminarPubli'
 import '../App.css'
@@ -51,8 +51,8 @@ export default function Home({userName, correoUsuario, photo, infoUsuario}) {
         actualizarPubli();
     }, [])
 
-    function actualizarUsuarios (usuarios) {
-        traerUsuarios().then(() => {
+    function actualizarUsuarios () {
+        traerUsuarios().then((usuarios) => {
             setUsuarios(usuarios);
         });
     };
@@ -125,28 +125,17 @@ export default function Home({userName, correoUsuario, photo, infoUsuario}) {
                     ))}
                 </tbody>
             </Table>
-            {/* <hr/>
-            <Perfil corrreoUsuario={correoUsuario} userName={userName} photo={photo} infoUsusario={infoUsuario}/> */}
-            {/* <>
-<Card> {publicaciones && publicaciones.map((objeto, index) => (
-<Card.Header as="h5" key={index}>{objeto.titulo}</Card.Header>
-<Card.Body>
-  <Card.Title>{objeto.ubicación}</Card.Title>
-  <Card.Text>
-  {objeto.descripción}, {objeto.Fecha}, {objeto.id}
-  </Card.Text>
-  <Button variant='dark' onClick={() => { 
-                                    setPubliEditar({...objeto});
-                                    setIsModalEditar(true);}}>Editar</Button>
-                                <Button onClick={()=> {
-                                    eliminarPubliHome(objeto).then(
-                                        (confirmacion) => {
-                                        actualizarPubli();
-                                    }); }} variant='danger' >Eliminar</Button>
-)</Card.Body>
-)</Card>
-          
-            </> */}
+            <hr/>
+            <Card border="danger" style={{ width: '18rem' }}>
+    <Card.Header>Usuarios</Card.Header>
+    <Card.Body>
+      <Card.Title></Card.Title>
+      <Card.Text actualizarUsuarios={actualizarUsuarios}>
+       
+      </Card.Text>
+    </Card.Body>
+  </Card>
+  <br />
 
 <Button onClick={añadirPubliHome} variant="warning">Agregar Publicación</Button>
         </Container>
