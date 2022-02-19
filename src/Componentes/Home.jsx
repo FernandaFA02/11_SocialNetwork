@@ -4,7 +4,7 @@ import traerData from './TraerPublicaciones'
 import eliminarPubliHome from './EliminarPubli'
 import '../App.css'
 import filtrarDatos from './FiltradorDatos'
-import Perfil from './Perfil'
+import traerUsuarios from './TraerUsuarios'
 //Se importan los modales
 import ModalAñadir from './ModalAñadir'
 import ModalEditar from './ModalEditar'
@@ -21,6 +21,7 @@ export default function Home({userName, correoUsuario, photo, infoUsuario}) {
     const [isModalAñadir, setIsModalAñadir] = useState(false);
     const [isModalEditar, setIsModalEditar] = useState(false);
     const [publiEditar, setPubliEditar] = useState();
+    const [usuarios, setUsuarios] = useState();
     console.log(userName);
 
     const fakeData = {
@@ -48,6 +49,16 @@ export default function Home({userName, correoUsuario, photo, infoUsuario}) {
 
     useEffect(() => {
         actualizarPubli();
+    }, [])
+
+    function actualizarUsuarios (usuarios) {
+        traerUsuarios().then(() => {
+            setUsuarios(usuarios);
+        });
+    };
+
+    useEffect(()=>{
+        actualizarUsuarios();
     }, [])
 
     return (
