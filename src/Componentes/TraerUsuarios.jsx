@@ -10,8 +10,10 @@ const traerUsuarios = async () => {
         const snapShot = await getDocs(collectionRef)
         snapShot.forEach(doc => {
             usuario.push(doc.data());
+            console.log(usuario)
         });
         return usuario;
+        
 }
 
 export default traerUsuarios;

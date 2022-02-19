@@ -21,6 +21,9 @@
 ![1.Planning](./src/Assets/P1.png)
 ![2.Planning](./src/Assets/P2.png)
 ![3.Planning](./src/Assets/P3.png)
+![4.Planning](./src/Assets/P4.png)
+![5.Planning](./src/Assets/P5.png)
+![6.Planning](./src/Assets/P6.png)
 
 ---
 
