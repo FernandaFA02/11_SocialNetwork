@@ -3,7 +3,7 @@ import Home from '../src/Componentes/Home'
 import Logueo from '../src/Componentes/Logueo'
 import './App.css'
 
-import firebaseApp from './Componentes/Firebase';
+import {firebaseApp} from './Componentes/Firebase';
 import {getFirestore, doc, getDoc} from 'firebase/firestore'
 import {getAuth, onAuthStateChanged} from 'firebase/auth'; 
 const auth = getAuth(firebaseApp);

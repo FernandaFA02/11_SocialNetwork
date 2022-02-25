@@ -1,0 +1,1 @@
+export {CrearPost} from './CrearPost/CrearPost'

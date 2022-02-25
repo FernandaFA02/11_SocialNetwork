@@ -1,5 +1,5 @@
 //Se importan las credeciales de firebase
-import firebaseApp from './Firebase'
+import {firebaseApp} from './Firebase'
 import {getFirestore, getDocs, collection} from 'firebase/firestore'
 const firestore = getFirestore(firebaseApp);
 

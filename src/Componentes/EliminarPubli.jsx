@@ -1,4 +1,4 @@
-import firebaseApp from "./Firebase";
+import {firebaseApp} from "./Firebase";
 import {getFirestore, deleteDoc, collection, doc} from 'firebase/firestore'
 const firestore = getFirestore(firebaseApp);
 

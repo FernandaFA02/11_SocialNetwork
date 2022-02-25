@@ -10,9 +10,9 @@ export default function ModalEditar({isModalEditar, setIsModalEditar, actualizar
         const ubicación = document.getElementById('ubicación').value;
         const descripción = document.getElementById('descripción').value;
         const Fecha = document.getElementById('Fecha').value;
-        const id = document.getElementById('id').value;
+        // const id = document.getElementById('id').value;
         //se envia la informaciónn a firebase
-        const infoPubli = {titulo, ubicación, descripción, Fecha, id};
+        const infoPubli = {titulo, ubicación, descripción, Fecha};
         añadirPubli(infoPubli);
         //cerramos el modal //regresar el estado a {false}
         setPubliEditar(null);
@@ -41,8 +41,8 @@ export default function ModalEditar({isModalEditar, setIsModalEditar, actualizar
                     value={publiEstado.descripción} onChange={(e)=> setPubliEstado({...publiEstado, descripción: e.target.value})} />
                     <Form.Control id='Fecha' placeholder='Fecha' type='text' className='mb-1'
                     value={publiEstado.Fecha} onChange={(e)=> setPubliEstado({...publiEstado, Fecha: e.target.value})}  />
-                    <Form.Control id='id' placeholder='ID' type='text' className='mb-1' 
-                    value={publiEstado.id} onChange={(e)=> setPubliEstado({...publiEstado, id: e.target.value})} />
+                    {/* <Form.Control id='id' placeholder='ID' type='text' className='mb-1' 
+                    value={publiEstado.id} onChange={(e)=> setPubliEstado({...publiEstado, id: e.target.value})} /> */}
                 </Stack>
             </Form>
         </Modal.Body>

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Stack, Container, Form, Button } from 'react-bootstrap'
 import logo from '../Assets/L1.jpg'
 import '../App.css'
-import firebaseApp from './Firebase';
+import {firebaseApp} from './Firebase';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect,
 GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from 'firebase/auth';
 import {getFirestore, doc, setDoc} from 'firebase/firestore'
