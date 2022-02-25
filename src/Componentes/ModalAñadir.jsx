@@ -10,9 +10,9 @@ export default function ModalAñadir({isModalAñadir, setIsModalAñadir, actuali
         const ubicación = document.getElementById('ubicación').value;
         const descripción = document.getElementById('descripción').value;
         const Fecha = document.getElementById('Fecha').value;
-        const id = document.getElementById('id').value;
+        // const id = document.getElementById('id').value;
         //se envia la informaciónn a firebase
-        const infoPubli = {titulo, ubicación, descripción, Fecha, id};
+        const infoPubli = {titulo, ubicación, descripción, Fecha};
         añadirPubli(infoPubli);
         //cerramos el modal
         actualizarPubli();
@@ -31,7 +31,7 @@ export default function ModalAñadir({isModalAñadir, setIsModalAñadir, actuali
                     <Form.Control id='ubicación' placeholder='Ubicación' type='text' className='mb-1' />
                     <Form.Control id='descripción' placeholder='Descripción' type='text' className='mb-1' />
                     <Form.Control id='Fecha' placeholder='Fecha' type='text' className='mb-1' />
-                    <Form.Control id='id' placeholder='ID' type='text' className='mb-1' />
+                    {/* <Form.Control id='id' placeholder='ID' type='text' className='mb-1' /> */}
                 </Stack>
             </Form>
         </Modal.Body>
